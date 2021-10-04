@@ -1,0 +1,45 @@
+<div id="parent">
+    <div id="header-container">
+        <div id="header">
+            <div id="search-container">
+                <div id="search">
+                    <div id="inline-search-div">
+                        <input #searchInput id="search-input">
+                        <div id="seacrh-icon-container" (click)="search()">
+                            <i class="fa fa-search"></i>
+                        </div>
+                    </div>
+                    
+                    <div id="search-suggestions-container">
+                        <div *ngIf="suggestions && suggestions.length > 0" id="search-suggestions">
+                            <div *ngFor="let suggestion of suggestions" (click)="suggestionClickHandler(suggestion)" class="suggestion">
+                                {{ suggestion }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content-container">
+        <div id="filter-area-container">
+            <div id="price-filter">
+                <h4 *ngIf="results && results.length > 0">Filter by price</h4>
+                <div *ngIf="results && results.length > 0" id="filter-inputs-container">
+                    <input #fromFilter placeholder="From">
+                    <input #toFilter placeholder="To">
+                    <button id="filter-btn" (click)="filterByPrice()">Go</button>
+                </div>
+            </div>
+        </div>
+        <div id="result-container">
+            <div id="cards-container">
+                <div *ngIf="results && results.length > 0" class="card">
+                    <app-result-card  *ngFor="let result of results" [data]="result"></app-result-card>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
