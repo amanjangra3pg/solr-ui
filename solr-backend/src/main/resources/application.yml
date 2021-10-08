@@ -1,8 +1,7 @@
 server:
   port: 8888
-  address: 0.0.0.0
   
 solr:
-  urls: http://127.0.0.1:8983/solr,http://127.0.0.1:8983/solr
+  urls: http://solr-1:8983/solr,http://solr-2:8983/solr
 
-zkHost: 127.0.0.1:2181,127.0.0.1:2182,127.0.0.1:2183
+zkHost: zoo-1:2181,zoo-2:2181,zoo-3:2181
