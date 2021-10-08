@@ -1,0 +1,10 @@
+### Maven ###
+/target/
+/dependency-reduced-pom.xml
+
+### Eclipse IDE ###
+/.settings/
+/.project
+/.classpath
+/bin/
+/.git-versioned-pom.xml

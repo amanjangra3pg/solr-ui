@@ -1,0 +1,2 @@
+Television, Televisions, TV, TVs
+mobie => mobile,phone,cellphone
