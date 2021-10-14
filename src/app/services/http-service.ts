@@ -10,6 +10,7 @@ import { hostMap } from '../config/config';
 export class HttpService {
   public res: Response;
   private url: string;
+  private host:string = hostMap.get('SERVER');
   constructor(
     public http: HttpClient,
   ) {
@@ -19,9 +20,7 @@ export class HttpService {
     urlExt: string,
     jsonReq: string,
   ): any {
-    this.url = hostMap.get('SERVER') + urlExt;
-    console.log('URL', this.url);
-    console.log('POST Payload', jsonReq)
+    this.url = this.host + urlExt;
     let headers = new HttpHeaders();
     headers = headers.append('Content-type', 'application/json');
     return this.http.post(this.url, jsonReq, {headers}).pipe(
@@ -31,33 +30,14 @@ export class HttpService {
     );
   }
 
-  public patch(
-    urlExt: string,
-    jsonReq: string,
-  ): any {
-    this.url = hostMap + urlExt;
-    return this.http.patch(this.url, jsonReq).pipe(
-      map((res: Response) => {
-        return this.handleResponse(res);
-      }),
-    );
-  }
-
-  public delete(urlKey: string, urlExt: string): any {
-    this.url = hostMap + urlExt;
-    return this.http.delete(this.url).pipe(
-      map((res: Response) => {
-        return this.handleResponse(res);
-      }),
-    );
+  get(urlExt: string): any {
+    this.url = this.host + urlExt;
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-type', 'application/json');
+    return this.http.get(this.url, {headers});
   }
 
   private handleResponse(res: any): Promise<any> {
     return res;
-  }
-
-  get(urlExt: string): any {
-    this.url = hostMap + urlExt;
-    return this.http.get(this.url);
   }
 }

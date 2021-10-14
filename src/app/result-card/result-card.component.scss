@@ -6,6 +6,7 @@
         height: 32px;
         font-size: 28px;
         padding : 10px;
+        cursor: pointer;
     }
     .description-container {
         color: black;
@@ -24,16 +25,29 @@
         }
         .edit-btn-container{
             padding-left: 50%;
-            button {
-                cursor: pointer;
-                background-color: rgb(63, 148, 228);
-                color: blanchedalmond;
-                border-radius: 4px;
-                border-color: rgb(63, 148, 228);
-                box-shadow: 1px rgb(63, 148, 228);
-                font-size: 16px;
-                height: 32px;
-            }
         }
+    }
+}
+.blue-button {
+    cursor: pointer;
+    background-color: rgb(63, 148, 228);
+    color: white;
+    border-radius: 4px;
+    border:none;
+    box-shadow: 1px rgb(63, 148, 228);
+    font-size: 16px;
+    height: 40px;
+    width: auto;
+    padding: 5px;
+}
+.modal-parent{
+    padding: 32px;
+    #modal-header{
+        padding: 5px;
+        height: 32px;
+        width: 100%;
+        color: white;
+        font-weight: 600;
+        background-color: rgb(63, 148, 228);
     }
 }
