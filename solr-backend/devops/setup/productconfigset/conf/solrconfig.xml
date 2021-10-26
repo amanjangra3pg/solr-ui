@@ -433,10 +433,23 @@
     </arr>
   </requestHandler>
 
+<updateRequestProcessorChain name="dedupe">
+  <processor class="solr.processor.SignatureUpdateProcessorFactory">
+    <bool name="enabled">true</bool>
+    <str name="signatureField">signature</str>
+    <bool name="overwriteDupes">false</bool>
+    <str name="fields">id</str>
+    <str name="signatureClass">solr.processor.Lookup3Signature</str>
+  </processor>
+  <processor class="solr.LogUpdateProcessorFactory" />
+  <processor class="solr.RunUpdateProcessorFactory" />
+</updateRequestProcessorChain>
+
 
   <initParams path="/update/**,/query,/select,/tvrh,/elevate,/spell">
     <lst name="defaults">
       <str name="df">text</str>
+      <str name="update.chain">dedupe</str>
     </lst>
   </initParams>
 

@@ -1,9 +1,9 @@
 <div class="card-parent">
     <div class="name-container">
-        <span (click)="openProductDetailModel(data)" class="name">{{data.name}}</span>
+        <span (click)="openProductDetailModel(data)" class="name" [innerHTML]="data.name | highlight : searchText"></span>
     </div>
     <div class="description-container">
-        <span class="description">{{data.description}}</span>
+        <span class="description" [innerHTML]="data.description | highlight : searchText"></span>
     </div>
     <div class="card-bottom">
         <div class="price-container">
@@ -13,7 +13,8 @@
             <span class="qty">Qty : {{data.quantity}}</span>
         </div>
         <div class="edit-btn-container">
-            <button class="blue-button">Edit <i class="fas fa-edit"></i></button>
+            <button class="btn btn-primary mr-2">Edit <i class="fa fa-edit"></i></button>
+            <button class="btn btn-danger" (click)="deleteProductById(data.id)" >Delete <i class="fa fa-trash"></i></button>
         </div>
     </div>
 </div>

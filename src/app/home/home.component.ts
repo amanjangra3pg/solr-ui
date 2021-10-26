@@ -59,10 +59,12 @@ export class HomeComponent implements OnInit {
     this.suggestions = [];
     this.search(suggestion);
   }
+
+  searchText=""
   search(searchText?:string){
     if(!searchText)
       searchText = this.searchInput.nativeElement.value;
-    
+    this.searchText = searchText;
     this.suggestions = [];  
     this.results = [];
     

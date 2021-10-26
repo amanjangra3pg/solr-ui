@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { HighlightPipe } from './pipes/HighlightPipe';
 import { ResultCardComponent } from './result-card/result-card.component';
 import { HttpService } from './services/http-service';
 import { SolrService } from './services/solr-service';
@@ -16,6 +17,7 @@ import { SolrService } from './services/solr-service';
     AppComponent,
     HomeComponent,
     ResultCardComponent,
+    HighlightPipe
   ],
   imports: [
     BrowserModule,

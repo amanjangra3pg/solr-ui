@@ -11,7 +11,6 @@ import java.util.StringJoiner;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CloudSolrClient;
@@ -108,17 +107,21 @@ public class SolrDao {
 			return new SolrDocumentList();
 		}
 	}
-	
-	public SolrDocument getOne(Long id) throws Exception{
-		SolrQuery query = new SolrQuery();
-		query.set("defType", "edismax");
-		query.set("q", "*" + id + "*");
-		query.set("qf", "id^10");
-		
-		QueryResponse response;
-		response = solrClient.query(query);
-		SolrDocumentList docList = response.getResults();
-		return docList.get(0);
+
+	public SolrDocument getOne(String id) throws Exception {
+		return solrClient.getById(id);
+	}
+
+	public int deleteByID(String id) throws Exception {
+		UpdateResponse response = solrClient.deleteById(id, 100);
+		return response.getStatus();
+	}
+
+	public int update(Map<String, Object> documentFields) throws Exception {
+		SolrInputDocument document = new SolrInputDocument();
+		documentFields.forEach(document::addField);
+		UpdateResponse response = solrClient.add(new SolrInputDocument(document), 100);
+		return response.getStatus();
 	}
 
 }

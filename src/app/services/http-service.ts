@@ -37,6 +37,13 @@ export class HttpService {
     return this.http.get(this.url, {headers});
   }
 
+  delete(urlExt: string): any {
+    this.url = this.host + urlExt;
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-type', 'application/json');
+    return this.http.delete(this.url, {headers});
+  }
+
   private handleResponse(res: any): Promise<any> {
     return res;
   }

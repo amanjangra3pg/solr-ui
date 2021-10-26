@@ -10,6 +10,7 @@ import { Product } from '../shared/models/Product';
 })
 export class ResultCardComponent implements OnInit {
   @Input() data:Product;
+  @Input() searchText:string;
   @ViewChild('productModal', { static: true }) productModal: ElementRef;
   fields:Field[] = [];
   constructor(private solrService:SolrService, private modal:NgbModal) { }
@@ -29,6 +30,13 @@ export class ResultCardComponent implements OnInit {
     this.solrService.getProduct(product.id).subscribe(res => {
       console.log('res product', res);
       this.modal.open(this.productModal);
+    });
+  }
+
+  deleteProductById(id:number){
+    this.solrService.deleteProduct(id).subscribe(res => {
+      console.log('res product', res);
+      alert("record deleted");
     });
   }
   closeModal(modal){
