@@ -1,6 +1,7 @@
 <div class="card-parent">
     <div class="name-container">
-        <span (click)="openProductDetailModel(data)" class="name" [innerHTML]="data.name | highlight : searchText"></span>
+        <span (click)="openProductDetailModel(data)" class="name"
+            [innerHTML]="data.name | highlight : searchText"></span>
     </div>
     <div class="description-container">
         <span class="description" [innerHTML]="data.description | highlight : searchText"></span>
@@ -13,8 +14,10 @@
             <span class="qty">Qty : {{data.quantity}}</span>
         </div>
         <div class="edit-btn-container">
-            <button class="btn btn-primary mr-2">Edit <i class="fa fa-edit"></i></button>
-            <button class="btn btn-danger" (click)="deleteProductById(data.id)" >Delete <i class="fa fa-trash"></i></button>
+            <button class="btn btn-primary mr-2" (click)="openUpdateProductModel(data)">Edit <i
+                    class="fa fa-edit"></i></button>
+            <button class="btn btn-danger" (click)="deleteProductById(data.id)">Delete <i
+                    class="fa fa-trash"></i></button>
         </div>
     </div>
 </div>
@@ -25,7 +28,7 @@
         </div>
         <div class="modal-body">
             <div *ngFor="let field of fields">
-                <label class="field-name">{{ field.name }}   :   </label>
+                <label class="field-name">{{ field.name }} : </label>
                 <label class="field-value">{{ field.value }}</label>
             </div>
         </div>
@@ -33,5 +36,29 @@
             <button class="blue-button" (click)="closeModal(modal)">Close</button>
         </div>
     </div>
-    
+
+</ng-template>
+
+<ng-template #productUpdateModal let-modal>
+    <div class="modal-parent">
+        <div id="modal-header">
+            Update Product Information
+        </div>
+        <div class="modal-body">
+            <form #f="ngForm" (submit)="onSubmit(f)">
+                <div *ngFor="let field of fields">
+                    <div *ngIf="field.name!='_version_' && field.name!='_root_' && field.name!='timestamp'">
+                        <label class="field-name">{{ field.name }} : &nbsp;&nbsp;&nbsp;</label>
+                        <input [readonly]="field.name=='id'" class="field-value" name="{{ field.name }}" [(ngModel)]="field.value" />
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Update" />
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="blue-button" (click)="updateProduct(modal)">Update</button>
+            <button class="blue-button" (click)="closeModal(modal)">Close</button>
+        </div>
+    </div>
+
 </ng-template>

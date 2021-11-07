@@ -44,6 +44,13 @@ export class HttpService {
     return this.http.delete(this.url, {headers});
   }
 
+  update(urlExt: string, data: any): any {
+    this.url = this.host + urlExt;
+    let headers = new HttpHeaders();
+    headers = headers.append('Content-type', 'application/json');
+    return this.http.put(this.url, data, {headers});
+  }
+
   private handleResponse(res: any): Promise<any> {
     return res;
   }

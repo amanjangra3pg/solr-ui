@@ -113,7 +113,7 @@ public class SolrDao {
 	}
 
 	public int deleteByID(String id) throws Exception {
-		UpdateResponse response = solrClient.deleteById(id, 100);
+		UpdateResponse response = solrClient.deleteByQuery("id:" + id, 100);
 		return response.getStatus();
 	}
 

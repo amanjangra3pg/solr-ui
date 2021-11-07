@@ -1,12 +1,7 @@
 export class SearchRequestPayload {
     searchText:string;
         sortMap:SortMap;
-        filterMap:FilterMap;
-        price:string[];
-}
-export class FilterMap {
-    timestamp:string[];
-    name:string[];
+        filterMap:object;
 }
 export class SortMap {
     name:SortOrder;

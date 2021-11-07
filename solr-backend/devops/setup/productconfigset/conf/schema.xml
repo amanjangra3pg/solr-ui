@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="products" version="1.6">
   	<field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-	<field name="name" type="text" indexed="true" stored="true" required="true" multiValued="false" />
-	<field name="description" type="text" indexed="true" stored="true" required="false" multiValued="false" />
+	<field name="name" type="text_general" indexed="true" stored="true" required="true" multiValued="false" />
+	<field name="description" type="text_general" indexed="true" stored="true" required="false" multiValued="false" />
 	<field name="quantity" type="pint" indexed="true" stored="true" required="false" multiValued="false" />
 	<field name="price" type="pint" indexed="true" stored="true" required="false" multiValued="false" />
 	<field name="category" type="string" indexed="true" stored="true" required="false" multiValued="false" />
@@ -16,7 +16,7 @@
 	<fieldType name="pint" class="solr.IntPointField" positionIncrementGap="0"/>
  	<fieldType name="plong" class="solr.LongPointField" positionIncrementGap="0"/>
 	<fieldType name="date" class="solr.DatePointField" positionIncrementGap="0"/>
-	<fieldType name="text" class="solr.TextField" positionIncrementGap="100"> 
+	<fieldType name="text_general" class="solr.TextField" positionIncrementGap="100"> 
 	  <analyzer type="index"> 
 	    <tokenizer class="solr.StandardTokenizerFactory"/>
 	    <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />

@@ -11,14 +11,16 @@ import { Product } from '../shared/models/Product';
 export class ResultCardComponent implements OnInit {
   @Input() data:Product;
   @Input() searchText:string;
+  @Input() deleteProductById: (id:number) => void
   @ViewChild('productModal', { static: true }) productModal: ElementRef;
+  @ViewChild('productUpdateModal', { static: true }) updateProductModal: ElementRef;
   fields:Field[] = [];
   constructor(private solrService:SolrService, private modal:NgbModal) { }
 
   ngOnInit(): void {
     this.initFieldsArray();
   }
-
+  destroy:boolean=false;
   initFieldsArray(){
     Object.keys(this.data).forEach(key => {
       let field:Field = new Field(key, this.data[key]+'');
@@ -33,12 +35,24 @@ export class ResultCardComponent implements OnInit {
     });
   }
 
-  deleteProductById(id:number){
-    this.solrService.deleteProduct(id).subscribe(res => {
+  openUpdateProductModel(product:Product){
+    this.solrService.getProduct(product.id).subscribe(res => {
       console.log('res product', res);
-      alert("record deleted");
+      this.modal.open(this.updateProductModal);
     });
   }
+
+  updateProduct(product:Object){
+    this.solrService.updateProduct(product).subscribe(res => {
+      //reload
+    });
+  }
+
+  onSubmit(formData){
+    this.updateProduct(formData.value);
+    return false; //don't submit
+  }
+
   closeModal(modal){
     modal.close();
   }

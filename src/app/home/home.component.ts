@@ -81,12 +81,21 @@ export class HomeComponent implements OnInit {
       sortMap.name = SortOrder.ASC;
       sortMap.timestamp = SortOrder.DESC;
       
-      let ret = this.solrService.search(searchText, priceFilter, sortMap, null).subscribe(res=> {
+      let ret = this.solrService.search(searchText, priceFilter, sortMap).subscribe(res=> {
         this.results = res;
       })
       
     }
   }
+
+  deleteProductById(id:number){
+    this.solrService.deleteProduct(id).subscribe(res => {
+      console.log('res product', res);
+      alert("record deleted");
+      this.search(this.searchText);
+    });
+  }
+
   filterByPrice(){
     this.search();
   }
