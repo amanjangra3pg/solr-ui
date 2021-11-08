@@ -44,21 +44,21 @@
         <div id="modal-header">
             Update Product Information
         </div>
-        <div class="modal-body">
-            <form #f="ngForm" (submit)="onSubmit(f)">
+        <form #f="ngForm" (submit)="onSubmit(f, modal)">
+            <div class="modal-body">
                 <div *ngFor="let field of fields">
                     <div *ngIf="field.name!='_version_' && field.name!='_root_' && field.name!='timestamp'">
                         <label class="field-name">{{ field.name }} : &nbsp;&nbsp;&nbsp;</label>
-                        <input [readonly]="field.name=='id'" class="field-value" name="{{ field.name }}" [(ngModel)]="field.value" />
+                        <input [readonly]="field.name=='id'" class="field-value" name="{{ field.name }}"
+                            [(ngModel)]="field.value" />
                     </div>
                 </div>
-                <input type="submit" class="btn btn-primary" value="Update" />
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button class="blue-button" (click)="updateProduct(modal)">Update</button>
-            <button class="blue-button" (click)="closeModal(modal)">Close</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" class="blue-button" value="Update" />
+                <button class="blue-button" (click)="closeModal(modal)">Close</button>
+            </div>
+        </form>
     </div>
 
 </ng-template>

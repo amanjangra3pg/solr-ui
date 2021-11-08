@@ -10,11 +10,14 @@ export class SolrService {
     DELETE_PRODUCT_API = 'product/';
     UPDATE_PRODUCT_API = 'product';
     constructor(private httpService:HttpService){}
-    search(searchText:string, priceFilter:PriceFilter, sortMap:SortMap){
+    search(searchText:string, priceFilter:PriceFilter, dateFilter:DateFilter, sortMap:SortMap){
         let payload:SearchRequestPayload = Object.create(null);
+        payload.filterMap = Object.create(null);
         payload.searchText = searchText;
         if(priceFilter.greaterThan || priceFilter.lessThan)
             payload.filterMap['price'] = [priceFilter.lessThan, priceFilter.greaterThan];
+        if(dateFilter.greaterThan || dateFilter.lessThan)
+            payload.filterMap['timestamp'] = [new Date(dateFilter.lessThan).toISOString(), new Date(dateFilter.greaterThan).toISOString()];
         if(sortMap)
             payload.sortMap = sortMap;
         return this.httpService.post(this.SEARCH_API, JSON.stringify(payload));
@@ -36,6 +39,11 @@ export class SolrService {
 }
 
 export class PriceFilter {
+    greaterThan:string;
+    lessThan:string;
+}
+
+export class DateFilter {
     greaterThan:string;
     lessThan:string;
 }

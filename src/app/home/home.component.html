@@ -31,6 +31,12 @@
                     <input #toFilter placeholder="To">
                     <button id="filter-btn" (click)="filterByPrice()">Go</button>
                 </div>
+                <h4 *ngIf="results && results.length > 0">Filter by date</h4>
+                <div *ngIf="results && results.length > 0" id="filter-inputs-container">
+                    <input type="date" #fromDateFilter placeholder="From">
+                    <input type="date" #toDateFilter placeholder="To">
+                    <button id="filter-btn" (click)="filterByDate()">Go</button>
+                </div>
             </div>
         </div>
         <div id="result-container">

@@ -48,8 +48,9 @@ export class ResultCardComponent implements OnInit {
     });
   }
 
-  onSubmit(formData){
+  onSubmit(formData, modal){
     this.updateProduct(formData.value);
+    modal.close();
     return false; //don't submit
   }
 

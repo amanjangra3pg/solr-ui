@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { map, catchError, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { PriceFilter, SolrService } from '../services/solr-service';
+import { DateFilter, PriceFilter, SolrService } from '../services/solr-service';
 import { Product } from '../shared/models/Product';
 import { SortMap, SortOrder } from '../shared/models/SearchRequestPayload';
 
@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('searchInput', { static: false }) searchInput: ElementRef;
   @ViewChild('fromFilter', { static: false }) fromInput: ElementRef;
   @ViewChild('toFilter', { static: false }) toInput: ElementRef;
+  @ViewChild('fromDateFilter', { static: false }) fromDateInput: ElementRef;
+  @ViewChild('toDateFilter', { static: false }) toDateInput: ElementRef;
 
   constructor(private solrService:SolrService) { }
 
@@ -76,12 +78,17 @@ export class HomeComponent implements OnInit {
         priceFilter.lessThan = from;
       if(this.toInput)
         priceFilter.greaterThan = to;
+      let dateFilter:DateFilter = Object.create(null);
+      if(this.fromDateInput)
+        dateFilter.lessThan = this.fromDateInput?.nativeElement.value;
+      if(this.toDateInput)
+        dateFilter.greaterThan = this.toDateInput?.nativeElement.value;
 
       let sortMap:SortMap = Object.create(null);
       sortMap.name = SortOrder.ASC;
       sortMap.timestamp = SortOrder.DESC;
       
-      let ret = this.solrService.search(searchText, priceFilter, sortMap).subscribe(res=> {
+      let ret = this.solrService.search(searchText, priceFilter, dateFilter, sortMap).subscribe(res=> {
         this.results = res;
       })
       
@@ -97,6 +104,10 @@ export class HomeComponent implements OnInit {
   }
 
   filterByPrice(){
+    this.search();
+  }
+
+  filterByDate(){
     this.search();
   }
 }
