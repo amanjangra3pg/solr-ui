@@ -42,7 +42,7 @@
         <div id="result-container">
             <div id="cards-container">
                 <div *ngIf="results && results.length > 0" class="card">
-                    <app-result-card  *ngFor="let result of results" [data]="result" [searchText]="searchText" [deleteProductById]="this.deleteProductById"></app-result-card>
+                    <app-result-card  *ngFor="let result of results" [data]="result" [searchText]="searchText" (itemDeleted)="deleteProductById($event)"></app-result-card>
                 </div>
             </div>
         </div>

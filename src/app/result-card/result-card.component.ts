@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SolrService } from '../services/solr-service';
 import { Product } from '../shared/models/Product';
@@ -11,7 +11,7 @@ import { Product } from '../shared/models/Product';
 export class ResultCardComponent implements OnInit {
   @Input() data:Product;
   @Input() searchText:string;
-  @Input() deleteProductById: (id:number) => void
+  @Output() itemDeleted = new EventEmitter<number>();
   @ViewChild('productModal', { static: true }) productModal: ElementRef;
   @ViewChild('productUpdateModal', { static: true }) updateProductModal: ElementRef;
   fields:Field[] = [];
@@ -46,6 +46,10 @@ export class ResultCardComponent implements OnInit {
     this.solrService.updateProduct(product).subscribe(res => {
       //reload
     });
+  }
+
+  deleteProduct(id){
+    this.itemDeleted.emit(id);
   }
 
   onSubmit(formData, modal){

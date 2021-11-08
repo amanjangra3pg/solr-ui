@@ -97,9 +97,9 @@ export class HomeComponent implements OnInit {
 
   deleteProductById(id:number){
     this.solrService.deleteProduct(id).subscribe(res => {
-      console.log('res product', res);
-      alert("record deleted");
-      this.search(this.searchText);
+      setTimeout(() => {
+        this.search(this.searchText);
+      }, 2000);
     });
   }
 
